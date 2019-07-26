@@ -28,11 +28,13 @@ object DiscLogic {
       acc.map(math.min(_, distanceToThisPoint))
         .orElse(Some(distanceToThisPoint))
     }
-    val maxForDiscs = discs.foldLeft[Option[Double]](None) { (acc, d) =>
-      val distanceToThisDisc = distanceBetween(point, d)
-      acc.map(math.min(_, distanceToThisDisc))
-        .orElse(Some(distanceToThisDisc))
-    }
+    val maxForDiscs = discs
+      .filterNot(point.label == _.centre.label)
+      .foldLeft[Option[Double]](None) { (acc, d) =>
+        val distanceToThisDisc = distanceBetween(point, d)
+        acc.map(math.min(_, distanceToThisDisc))
+          .orElse(Some(distanceToThisDisc))
+      }
     (maxForDiscs, maxForPoints) match {
       case (Some(discMax), Some(pointMax)) =>
         math.min(discMax, pointMax)
@@ -57,5 +59,9 @@ object DiscLogic {
   // https://www.google.com/search?q=area+of+circle&oq=area+of+circle
   def areaOfDisc(disc: Disc): Double = {
     math.Pi * math.pow(disc.radius, 2)
+  }
+
+  def areaOfAnswer(discs: List[Disc]): Double = {
+    discs.map(areaOfDisc).sum
   }
 }

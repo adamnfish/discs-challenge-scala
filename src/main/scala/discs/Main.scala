@@ -11,6 +11,16 @@ import scala.Console.{CYAN, MAGENTA, RED, RESET}
 object Main {
   def main(args: Array[String]): Unit = {
     // your submission
+
+    args.toList match {
+      case submission :: Nil =>
+        validateAnswer(submission)
+      case _ =>
+        findAnswer()
+    }
+  }
+
+  def findAnswer(): Unit = {
     val answer = workOutAnswer(points)
     if (answer.length > 50) {
       println(s"${RED}A valid submission contains at most 50 discs. This answer contains ${answer.length} discs ${RESET}")
@@ -25,6 +35,15 @@ object Main {
       Files.write(Paths.get(visualisationFile), html.getBytes(StandardCharsets.UTF_8))
       println(s"Open the following in your browser to see your answer")
       println(s"${CYAN}Visualisation:${RESET} ${MAGENTA}file://$visualisationFile${RESET}")
+    }
+  }
+
+  def validateAnswer(submission: String): Unit = {
+    Scoring.validate(submission, points) match {
+      case Right(score) =>
+        println(s"${CYAN}Valid answer with score:${RESET} ${MAGENTA}$score${RESET}")
+      case Left(err) =>
+        println(s"${RED}Invalid answer:${RESET} ${MAGENTA}$err${RESET}")
     }
   }
 
