@@ -51,7 +51,9 @@ object Scoring {
   def validateOverlaps(submittedDiscs: List[Disc], points: List[Point]): Either[String, Unit] = {
     submittedDiscs
       .map { disc =>
-        val max = maxRadius(disc.centre, points, submittedDiscs)
+        val max = maxRadius(disc.centre, points,
+          submittedDiscs.filterNot(_ == disc) // remove this disc to check what its max size should be
+        )
         if (max < disc.radius) {
           println("too big")
           Left(s"Disc ${disc.centre.label} has radius ${disc.radius}, which is larger than the max of ${max}")

@@ -3,37 +3,37 @@ package discs
 
 object DiscLogic {
   def workOutAnswer(points: List[Point]): List[Disc] = {
-    // do some logic here instead of this (non-optimal!) hard-coded answer
-    //
-    // this just takes the first 15 points and arbitrarily puts a disc there
-    // with a radius of `20`
-    (0 until 50).foldLeft[List[Disc]](Nil){ (accumulatedDiscs, _) =>
-      nextBestDisc(points, accumulatedDiscs) :: accumulatedDiscs
-    }
+    // run step 50 times (or as many times as we can for the number of points)
+    // each time, find the largest possible disc
+    (0 until math.min(50, points.length))
+      .foldLeft[List[Disc]](Nil){ (accumulatedDiscs, _) =>
+        nextBestDisc(points, accumulatedDiscs) :: accumulatedDiscs
+      }
   }
 
   def nextBestDisc(points: List[Point], discs: List[Disc]): Disc = {
-    val answers = points.map { p =>
-      Disc(p, maxRadius(p, points, discs))
-    }
+    val answers = points
+      .filterNot(p => discs.exists(_.centre == p))
+      .map { p =>
+        Disc(p, maxRadius(p, points, discs))
+      }
     answers.maxBy(_.radius)
   }
 
   def maxRadius(point: Point, points: List[Point], discs: List[Disc]): Double = {
     val nonDiscPoints = points
-      .filter(p => !discs.exists(d => d.centre == p))
-      .filterNot(point.label == _.label)
+      .filterNot(p => discs.exists(d => d.centre == p)) // exclude any points with a disc, we'll consider them next
+      .filterNot(point.label == _.label) // exclude the point itself, otherwise we'd always get 0
     val maxForPoints = nonDiscPoints.foldLeft[Option[Double]](None) { (acc, p) =>
-      val distanceToThisPoint = distanceBetween(point, p)
-      acc.map(math.min(_, distanceToThisPoint))
-        .orElse(Some(distanceToThisPoint))
+      val distanceToPoint = distanceBetween(point, p)
+      acc.map(math.min(_, distanceToPoint))
+        .orElse(Some(distanceToPoint))
     }
     val maxForDiscs = discs
-      .filterNot(point.label == _.centre.label)
       .foldLeft[Option[Double]](None) { (acc, d) =>
-        val distanceToThisDisc = distanceBetween(point, d)
-        acc.map(math.min(_, distanceToThisDisc))
-          .orElse(Some(distanceToThisDisc))
+        val distanceToDisc = distanceBetween(point, d)
+        acc.map(math.min(_, distanceToDisc))
+          .orElse(Some(distanceToDisc))
       }
     (maxForDiscs, maxForPoints) match {
       case (Some(discMax), Some(pointMax)) =>
@@ -43,6 +43,8 @@ object DiscLogic {
       case (None, Some(pointMax)) =>
         pointMax
       case _ =>
+        // this will only happen if there are no discs or points
+        // this means we're unconstrained, so we can set an arbitrarily large disc!
         10000000000000000D
     }
   }
