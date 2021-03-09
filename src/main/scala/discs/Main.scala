@@ -22,15 +22,18 @@ object Main {
 
   def findAnswer(): Unit = {
     val answer = workOutAnswer(points)
+
+    // validate and display the answer
     if (answer.length > 50) {
       println(s"${RED}A valid submission contains at most 50 discs. This answer contains ${answer.length} discs ${RESET}")
     } else {
+      // print answer
       val totalArea = answer.map(areaOfDisc).sum
       println(s"${CYAN}Your answer is:${RESET} ${MAGENTA}${formatAnswer(answer)}${RESET}")
       println(s"${CYAN}The total area of your answer is:${RESET} ${MAGENTA}$totalArea${RESET}")
 
       // generate visualisation
-      val html = Visualise.generateHtml(points, answer)
+      val html = Visualise.generateHtml(points, answer, totalArea)
       val visualisationFile = s"/tmp/discs-answer.html"
       Files.write(Paths.get(visualisationFile), html.getBytes(StandardCharsets.UTF_8))
       println(s"Open the following in your browser to see your answer")
