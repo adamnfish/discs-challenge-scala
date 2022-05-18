@@ -11,6 +11,9 @@ object DiscLogic {
       }
   }
 
+  /**
+   * Find (and return) the largest possible disc, from all the unused points.
+   */
   def nextBestDisc(points: List[Point], discs: List[Disc]): Disc = {
     val answers = points
       .filterNot(p => discs.exists(_.centre == p))
@@ -20,15 +23,24 @@ object DiscLogic {
     answers.maxBy(_.radius)
   }
 
+  /**
+   * Find the maximum size for a disc centered at the provided point.
+   *
+   * The lists of all points and all existing discs are included since these are the
+   * obstacles that need to be avoided.
+   */
   def maxRadius(point: Point, points: List[Point], discs: List[Disc]): Double = {
     val nonDiscPoints = points
       .filterNot(p => discs.exists(d => d.centre == p)) // exclude any points with a disc, we'll consider them next
       .filterNot(point.label == _.label) // exclude the point itself, otherwise we'd always get 0
-    val maxForPoints = nonDiscPoints.foldLeft[Option[Double]](None) { (acc, p) =>
-      val distanceToPoint = distanceBetween(point, p)
-      acc.map(math.min(_, distanceToPoint))
-        .orElse(Some(distanceToPoint))
-    }
+    // max size for avoiding the existing points
+    val maxForPoints = nonDiscPoints
+      .foldLeft[Option[Double]](None) { (acc, p) =>
+        val distanceToPoint = distanceBetween(point, p)
+        acc.map(math.min(_, distanceToPoint))
+          .orElse(Some(distanceToPoint))
+      }
+    // max size for avoiding the existing discs
     val maxForDiscs = discs
       .foldLeft[Option[Double]](None) { (acc, d) =>
         val distanceToDisc = distanceBetween(point, d)
@@ -37,14 +49,15 @@ object DiscLogic {
       }
     (maxForDiscs, maxForPoints) match {
       case (Some(discMax), Some(pointMax)) =>
+        // if we are constrained by both, take the smaller
         math.min(discMax, pointMax)
       case (Some(discMax), None) =>
         discMax
       case (None, Some(pointMax)) =>
         pointMax
       case _ =>
-        // this will only happen if there are no discs or points
-        // this means we're unconstrained, so we can set an arbitrarily large disc!
+        // this will only happen if there are no (other) discs or points
+        // this means we're unconstrained, so we can set an arbitrarily large disc
         10000000000000000D
     }
   }

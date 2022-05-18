@@ -2,7 +2,7 @@ package discs
 
 
 object Visualise {
-  def generateHtml(points: List[Point], discs: List[Disc], totalRadius: Double): String = {
+  def generateHtml(points: List[Point], discs: List[Disc], totalArea: Double): String = {
     val pointEls = points.map { point =>
       s"""<circle class="point" cx='${point.x}' cy='${1000 - point.y}' r='2' fill='black'
          |data-label='${point.label}' data-radius='-' data-position='x=${point.x}, y=${point.y}' data-pinned="false"
@@ -101,7 +101,7 @@ object Visualise {
        |      <input type="text" class="pinned-disc-info" name="current-position" value="" />
        |    </div>
        |    <div>
-       |      <p>Total radius: <code>$totalRadius</code></p>
+       |      <p>Total area: <code>$totalArea</code></p>
        |    </div>
        |  </p>
        |  <svg style="margin: 10px; background-colour: #f7f7f7; border: solid 1px #ccc;" height="1000" width="1000">
