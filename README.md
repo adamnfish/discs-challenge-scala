@@ -46,7 +46,7 @@ each time.
     > ~run
 
 This initially provided answer is not a very good one, have a look at
-you'll be able to improve on it! It only has 20 discs, you can use up
+you'll be able to improve on it! It only has 15 discs, you can use up
 to 50 in your answer.  Also, all the discs are hard-coded to a radius
 of 20. It would be better to make each disc as large as fits in the
 available space (i.e. without overlapping another disc or point).
