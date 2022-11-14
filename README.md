@@ -27,7 +27,7 @@ example answer that you can try and improve on.
 After running the project, you should see something like the
 following:
 
-    Your answer is: Your answer is: {1:20.0} {2:20.0} {3:20.0} {4:20.0} {5:20.0} {6:20.0} {7:20.0} {8:20.0} {9:20.0} {10:20.0} {11:20.0} {12:20.0} {13:20.0} {14:20.0} {15:20.0}
+    Your answer is: {1:20.0} {2:20.0} {3:20.0} {4:20.0} {5:20.0} {6:20.0} {7:20.0} {8:20.0} {9:20.0} {10:20.0} {11:20.0} {12:20.0} {13:20.0} {14:20.0} {15:20.0}
     The total area of your answer is: 18849.55592153876
     Open the following in your browser to see your answer:
     Visualisation: file:///tmp/discs-answer.html
@@ -39,17 +39,18 @@ with your approach.
 
 If you want to run the project every time the code changes you can use
 `~run`, which will watch for changes and execute the `run` command
-each time.
+each time. This means the visualisation will be kept up to date so you
+can always hit refersh in your browser to see your current solution.
 
     $ sbt
     ...
     > ~run
 
 This initially provided answer is not a very good one, have a look at
-you'll be able to improve on it! It only has 15 discs, you can use up
-to 50 in your answer.  Also, all the discs are hard-coded to a radius
-of 20. It would be better to make each disc as large as fits in the
-available space (i.e. without overlapping another disc or point).
+how you'll be able to improve on it! It only has 15 discs, you can use
+up to 50 in your answer. Also, all the discs are hard-coded to a
+radius of 20. It would be better to make each disc as large as fits in
+the available space (i.e. without overlapping another disc or point).
 
 ## Repository layout
 
@@ -67,8 +68,6 @@ available space (i.e. without overlapping another disc or point).
                 ├── Main.scala
                 ├── Visualise.scala
                 └── models.scala
-
-5 directories, 7 files
 ```
 
 ### DiscLogic
