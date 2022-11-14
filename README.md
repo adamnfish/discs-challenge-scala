@@ -27,7 +27,7 @@ example answer that you can try and improve on.
 After running the project, you should see something like the
 following:
 
-    Your answer is: Your answer is: {1: 20.0} {2: 20.0} {3: 20.0} {4: 20.0} {5: 20.0} {6: 20.0} {7: 20.0} {8: 20.0} {9: 20.0} {10: 20.0} {11: 20.0} {12: 20.0} {13: 20.0} {14: 20.0} {15: 20.0}
+    Your answer is: Your answer is: {1:20.0} {2:20.0} {3:20.0} {4:20.0} {5:20.0} {6:20.0} {7:20.0} {8:20.0} {9:20.0} {10:20.0} {11:20.0} {12:20.0} {13:20.0} {14:20.0} {15:20.0}
     The total area of your answer is: 18849.55592153876
     Open the following in your browser to see your answer:
     Visualisation: file:///tmp/discs-answer.html

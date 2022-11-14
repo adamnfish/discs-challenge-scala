@@ -26,7 +26,7 @@ object Main {
     } else {
       val totalArea = answer.map(d => math.Pi * math.pow(d.radius, 2)).sum
       val formattedSubmission = answer
-        .map(d => s"{${d.centre.label}: ${d.radius}}")
+        .map(d => s"{${d.centre.label}:${d.radius}}")
         .mkString(" ")
 
       // print answer to the terminal
