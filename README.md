@@ -27,8 +27,8 @@ example answer that you can try and improve on.
 After running the project, you should see something like the
 following:
 
-    Your answer is: 1,20.0,2,20.0,3,20.0,4,20.0,5,20.0,6,20.0,7,20.0,8,20.0,9,20.0,10,20.0,11,20.0,12,20.0,13,20.0,14,20.0,15,20.0,16,20.0,17,20.0,18,20.0,19,20.0,20,20.0,21,20.0,22,20.0,23,20.0,24,20.0,25,20.0,26,20.0,27,20.0,28,20.0,29,20.0,30,20.0,31,20.0,32,20.0,33,20.0,34,20.0,35,20.0,36,20.0,37,20.0,38,20.0,39,20.0,40,20.0,41,20.0,42,20.0,43,20.0,44,20.0,45,20.0,46,20.0,47,20.0,48,20.0,49,20.0,50,20.0
-    The total area of your answer is: 62831.8530717959
+    Your answer is: Your answer is: {1: 20.0} {2: 20.0} {3: 20.0} {4: 20.0} {5: 20.0} {6: 20.0} {7: 20.0} {8: 20.0} {9: 20.0} {10: 20.0} {11: 20.0} {12: 20.0} {13: 20.0} {14: 20.0} {15: 20.0}
+    The total area of your answer is: 18849.55592153876
     Open the following in your browser to see your answer:
     Visualisation: file:///tmp/discs-answer.html
 

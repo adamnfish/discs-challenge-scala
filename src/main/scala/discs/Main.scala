@@ -9,32 +9,37 @@ import scala.Console.{CYAN, MAGENTA, RED, RESET}
 
 
 object Main {
+  /**
+   * The CLI program for calculating an answer.
+   *
+   * It asks for your answer and then validates it and generates a visualisation for you.
+   */
   def main(args: Array[String]): Unit = {
     // calculate an answer
+    // you should implement the workOutAnswer function
     val answer = workOutAnswer(points)
 
     // validate and display the answer
     if (answer.length > 50) {
+      // this answer is invalid, print an error to the terminal
       println(s"${RED}A valid submission contains at most 50 discs. This answer contains ${answer.length} discs ${RESET}")
     } else {
-      // print answer
-      val totalArea = answer.map(areaOfDisc).sum
-      println(s"${CYAN}Your answer is:${RESET} ${MAGENTA}${formatAnswer(answer)}${RESET}")
+      val totalArea = answer.map(d => math.Pi * math.pow(d.radius, 2)).sum
+      val formattedSubmission = answer
+        .map(d => s"{${d.centre.label}: ${d.radius}}")
+        .mkString(" ")
+
+      // print answer to the terminal
+      println(s"${CYAN}Your answer is:${RESET} ${MAGENTA}${formattedSubmission}${RESET}")
       println(s"${CYAN}The total area of your answer is:${RESET} ${MAGENTA}$totalArea${RESET}")
 
-      // generate visualisation
+      // generate visualisation file
       val html = Visualise.generateHtml(points, answer, totalArea)
       val visualisationFile = s"/tmp/discs-answer.html"
       Files.write(Paths.get(visualisationFile), html.getBytes(StandardCharsets.UTF_8))
       println(s"Open the following in your browser to see your answer")
       println(s"${CYAN}Visualisation:${RESET} ${MAGENTA}file://$visualisationFile${RESET}")
     }
-  }
-
-  def formatAnswer(discs: List[Disc]): String = {
-    discs
-      .map(d => s"${d.centre.label},${d.radius}")
-      .mkString(",")
   }
 
   val points = List(
