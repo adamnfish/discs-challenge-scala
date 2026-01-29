@@ -1,8 +1,11 @@
 package discs
 
-
 object Visualise {
-  def generateHtml(points: List[Point], discs: List[Disc], totalArea: Double): String = {
+  def generateHtml(
+      points: List[Point],
+      discs: List[Disc],
+      totalArea: Double
+  ): String = {
     val pointEls = points.map { point =>
       s"""<circle class="point" cx='${point.x}' cy='${1000 - point.y}' r='2' fill='#0A2342' stroke="#0A2342"
          |data-label='${point.label}' data-radius='-' data-position-x='x = ${point.x}' data-position-y='y = ${point.y}' data-pinned="false"
